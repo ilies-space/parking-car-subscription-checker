@@ -1,14 +1,26 @@
 import React, {useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {Button, FlatList, Modal, Text, View} from 'react-native';
+import AddMemberModalComponenet from './AddMemberComponenet';
+// import AddMemberModalComponenet from './AddMemberModalComponenet';
 
 export default function ManageMembers() {
+  const [AddMemberModal, setAddMemberModal] = useState(false);
   const [members, setmembers] = useState([
     {
       fullName: 'ilies ouldm',
       carLicenceNumber: '123456',
       carModel: 'bmw',
+      id: Math.random(),
     },
   ]);
+
+  function addNewMember(MemberInfo) {
+    console.log({MemberInfo});
+    setmembers(oldList => {
+      return [...oldList, MemberInfo];
+    });
+    // setmembers(...members, MemberInfo);
+  }
 
   const renderMembers = ({item}) => {
     return (
@@ -25,11 +37,18 @@ export default function ManageMembers() {
   };
   return (
     <View>
+      <Button title={'add new one'} onPress={() => setAddMemberModal(true)} />
       <FlatList
         renderItem={renderMembers}
         keyExtractor={() => Math.random().toString()}
         data={members}
       />
+      <Modal visible={AddMemberModal}>
+        <AddMemberModalComponenet
+          setAddMemberModal={setAddMemberModal}
+          addNewMember={addNewMember}
+        />
+      </Modal>
     </View>
   );
 }
