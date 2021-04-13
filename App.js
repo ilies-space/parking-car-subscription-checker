@@ -1,6 +1,6 @@
 import React from 'react';
-import Home from './app/screens/Home';
+import HomeStack from './app/navigation/HomeStack';
 
 export default function App() {
-  return <Home />;
+  return <HomeStack />;
 }
